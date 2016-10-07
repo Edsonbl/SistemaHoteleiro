@@ -1,0 +1,57 @@
+﻿@model Dominio.Classes.Item
+<style>
+    h5 {
+        display: inline;
+    }
+
+    h4 {
+        display: inline;
+    }
+</style>
+@using (Html.BeginForm("AtualizarItem", "Item"))
+{
+
+    <div class="form-horizontal">
+
+        <div class="row">
+            <div class="input-field col s6">
+                <h4>@Model.Produto.descricao</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s2">
+                <h5>Tamanho: </h5>
+                @Model.Produto.tamanho
+            </div>
+            <div class="input-field col s2">
+                <h5>Valor Total: </h5>
+                @Model.valorTotal
+            </div>
+        </div>
+        <div class="row">
+ 
+            <div class="input-field col s2">
+                <h5>Quantidade: </h5>
+                @Html.EditorFor(model => model.quantidade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.quantidade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class=" row">
+
+            <div class="input-field col s0">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+        <div class="input-field col s6" style="display:none">
+            @Html.EditorFor(model => model.idHospedagem, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+
+        <div class="input-field col s6" style="display:none">
+            @Html.EditorFor(model => model.idItem, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+
+    </div>
+
+}

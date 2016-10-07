@@ -1,0 +1,92 @@
+﻿@model ProjectHotelWeb.Models.User
+
+<h4 class="center">Editar Usuário</h4>
+<hr />
+<br>
+@using (Html.BeginForm("EditarUsuario", "Account", new { userId = Model.Id }))
+{
+    @Html.AntiForgeryToken()
+
+    <form class="col s12">
+
+        <div class="row">
+            <div class="input-field col s5">
+                <select name="nivel" required>
+                    <option value="" disabled selected>Selecione a opção</option>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <option value="A">Administrador</option>
+                        <option value="G">Gerente</option>
+                    }
+                    <option value="R">Recepcionista</option>
+                    <option value="C">Convidado</option>
+                </select>
+                <label for="nivel">&nbsp;Nível de Acesso</label>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class=" row">
+            <div class="input-field col s10">
+                @Html.ActionLink("Voltar para o inicio", "Index")
+            </div>
+
+            <div class="input-field col s0">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+
+            </div>
+        </div>
+
+    </form>
+}
+
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+
+<div class="form-horizontal" style="display:none">
+    <h4>User</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.idFuncionario, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.idFuncionario, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.idFuncionario, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ativo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.ativo)
+                @Html.ValidationMessageFor(model => model.ativo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dataCadastro, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.dataCadastro, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.dataCadastro, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>

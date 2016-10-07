@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Dominio.Classes.Pessoa>
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<table class="hoverable">
+    <tr>
+
+        <th>
+            Código
+        </th>
+        <th>
+            Nome
+        </th>
+        <th>
+            Celular
+        </th>
+        <th>
+            E-mail
+        </th>
+
+        <th>
+            CEP
+        </th>
+        <th>
+            Opções
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.idPessoa)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telefoneMovel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emailPimario)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.cep)
+            </td>
+
+            <td>
+                @Html.ActionLink("Atualizar", "Atualizar", new { id = item.idPessoa }) |
+                @Html.ActionLink("Detalhar", "Detalhar", new { id = item.idPessoa }) |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.idPessoa })
+
+
+            </td>
+        </tr>
+    }
+
+</table>
+

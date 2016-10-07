@@ -1,0 +1,66 @@
+﻿@model Dominio.Classes.FormaPagamento
+
+@{
+    ViewBag.Title = "Detalhar";
+}
+
+<h2>Detalhar</h2>
+
+<div>
+    <h4>FormaPagamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idFormaPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idFormaPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numeroMaximoParcela)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numeroMaximoParcela)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

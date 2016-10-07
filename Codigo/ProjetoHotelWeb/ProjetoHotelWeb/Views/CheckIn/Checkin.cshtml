@@ -1,0 +1,374 @@
+﻿@model Dominio.Classes.PacoteHospedagem
+
+@{
+    ViewBag.Title = "Checkin";
+
+}
+
+
+
+
+<h2>Checkin</h2>
+<hr />
+@using (Html.BeginForm("AtualizarCliente", "Checkin"))
+{
+    @Html.AntiForgeryToken()
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s2">
+                <select name="filtro" required>
+                    <option value="" disabled selected>Filtro</option>
+                    <option value="1">CPF</option>
+                    <option value="2">CNPJ</option>
+                    <option value="3">Nome</option>
+                    <option value="4">Telefone</option>
+
+                </select>
+
+            </div>
+
+
+
+
+            <div class="input-field col s6">
+                <input id="Consulta" name="Consulta" type="text" required>
+                <label for="Consulta"><i class="material-icons">search</i></label>
+            </div>
+
+            <div class=" input-field col s3">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Consultar
+
+                </button>
+
+            </div>
+
+
+        </div>
+    </form>
+
+
+
+}
+
+@if (ViewBag.PessoasEscola != null)
+{
+
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1" style="display:none"></a>
+
+
+
+
+    <div id="modal1" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 class="center">Selecionar</h4>
+            <p>
+                <table class="hoverable">
+                    <tr>
+
+                        <th>
+                            Código
+                        </th>
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Celular
+                        </th>
+                        <th>
+                            CPF
+                        </th>
+
+                        <th>
+                            CEP
+                        </th>
+
+                        <th>
+                            Opções
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.PessoasEscola)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.idPessoa
+                            </td>
+
+                            <td>
+                                @item.nome
+                            </td>
+                            <td>
+                                @item.telefoneMovel
+                            </td>
+                            <td>
+                                @item.cpfCnpj
+                            </td>
+
+                            <td>
+                                @item.cep
+                            </td>
+
+
+                            <td>
+                                @Html.ActionLink("Selecionar", "EscolherCLiente", "Checkin", new { id = item.idPessoa }, null)
+
+
+
+                            </td>
+                        </tr>
+                    }
+
+
+
+
+                </table>
+            </p>
+
+
+
+
+        </div>
+
+
+    </div>
+    <script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script type="text/javascript">
+
+
+        $('#modal1').openModal();
+        $(document).ready(function () {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
+        });
+        $('.modal-trigger').leanModal({
+            dismissible: true, // Modal can be dismissed by clicking outside of the modal
+            opacity: .10, // Opacity of modal background
+            in_duration: 300, // Transition in duration
+            out_duration: 200, // Transition out duration
+            ready: function () { alert('Ready'); }, // Callback for Modal open
+            complete: function () { alert('Closed'); } // Callback for Modal close
+        }
+  );
+
+    </script>
+
+
+}
+
+
+@using (Html.BeginForm("RealizarCheckin", "Checkin"))
+{
+    <form name="TablePessoa">
+        <div class="row">
+            <div class="inputfield col s12">
+                <table class="hoverable">
+                    <tr>
+
+
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Celular
+                        </th>
+                        <th>
+                            CPF
+                        </th>
+
+                        <th>
+                            Selecionar
+                        </th>
+                        <th>
+                            Responsavel
+                        </th>
+                        <th>
+                            Remover
+                        </th>
+                        <th></th>
+                    </tr>
+
+
+
+
+                    @if (@ViewBag.Pessoas != null)
+                    {
+
+                        foreach (var item in ViewBag.Pessoas)
+                        {
+                            <tr>
+
+
+                                <td>
+                                    @item.nome
+                                </td>
+                                <td>
+                                    @item.telefoneMovel
+                                </td>
+                                <td>
+                                    @item.cpfCnpj
+                                </td>
+
+
+
+                                <td>
+                                    <input type="checkbox" class="filledin" id="@item.idPessoa" value="@item.idPessoa" name="checkPessoa" required />
+                                    <label for="@item.idPessoa"></label>
+                                </td>
+                                <td>
+                                    <input name="group3" type="radio" id=@(item.idPessoa+"#"+ item.cpfCnpj) value=@item.idPessoa required />
+                                    <label for=@(item.idPessoa+"#"+ item.cpfCnpj)></label>
+
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Excluir", "ExcluirCliente", "Checkin", new { id = item.idPessoa }, null)
+                                </td>
+                            </tr>
+                        }
+
+                    }
+
+
+                </table>
+
+
+            </div>
+        </div>
+
+        <br />
+        <hr />
+        <br />
+
+
+        <div class="row">
+            @if (ViewBag.Quartos != null)
+            {
+
+
+                <div class="input-field col s4" style="height: 250px; overflow: auto;">
+
+                    <select name="quarto" required>
+                        <option value="" disabled selected>Quarto</option>
+                        
+                        @foreach (var item in ViewBag.Quartos)
+                        {
+                            <option value="@item.idQuarto">@(item.descricao + " - Capacidade: " + item.capacidade)</option>
+
+
+
+                        }
+                    </select>
+
+
+                </div>
+                <div class="input-field col s4">
+                    <input name="Quantidade" id="Quantidade" type="text" class="validate" required>
+                    <label for="Quantidade">Periodo</label>
+                </div>
+                <div class="input-field col s4">
+                    <input name="Placa" id="Placa" type="text" class="validate">
+                    <label for="Placa">Placa do carro</label>
+                </div>
+                <div class="input-field col s4">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                        Salvar
+                    </button>
+                </div>
+
+
+            }
+
+
+
+        </div>
+        <hr />
+    </form>
+
+}
+
+@if (ViewBag.Pacote != null)
+{
+
+    <table class="hoverable">
+        <tr>
+
+            <th>
+                Tipo
+            </th>
+            <th>
+                Quarto
+            </th>
+
+
+            <th>
+                Carro
+            </th>
+            <th>
+                Pessoas
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Remover
+            </th>
+
+            @foreach (var item in ViewBag.Pacote.Hospedagem)
+            {
+
+
+            <tr>
+                <td>
+                    @item.Quarto.TipoQuarto.descricao
+
+                </td>
+                <td>
+                    @item.Quarto.descricao
+                </td>
+
+                <td>
+                    @item.placaVeiculo
+                </td>
+                <td>
+                    @item.ControleCliente.Count
+
+                </td>
+                <td>
+                    @item.valorHospedagem
+
+                </td>
+                <td>
+
+                    Remover
+                </td>
+
+            </tr>
+            }
+            </tr>
+        </table>
+
+
+}
+@using (Html.BeginForm("FinalizarCheckin", "Checkin"))
+{
+    <div class="row">
+
+        <div class="input-field col s8">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Voltar
+            </button>
+        </div><div class="input-field col s4">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Finalizar Check-in
+            </button>
+        </div>
+    </div>
+}
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

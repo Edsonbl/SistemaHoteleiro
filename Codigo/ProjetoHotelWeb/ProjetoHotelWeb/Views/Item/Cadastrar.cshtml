@@ -1,0 +1,201 @@
+﻿@model Dominio.Classes.Item
+
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.modal-trigger').leanModal();
+    });
+    $(function () {
+        $('#mylink').click(function () {
+            $('#modal1').openModal();
+        });
+        return false;
+    });
+    
+    function abre() {
+        $('#modal1').openModal();
+    }
+
+</script>
+
+@{var hospedagem = @ViewBag.Hospedagem;}
+
+<h2>Cadastrar</h2>
+
+@using (Html.BeginForm("CadastrarItem", "Item"))
+{
+    @Html.AntiForgeryToken()
+    <h4>Item</h4>
+    <hr />
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+
+
+        @{var cliente = @ViewBag.Cliente;}
+
+
+        <div class="row">
+            <div class="col s6">
+                <div class="card-panel teal">
+
+                    <h5 class="center ; white-text">@hospedagem.Quarto.descricao</h5>
+
+                </div>
+                <div class="card-panel teal">
+                    <span class="white-text">
+                        <b>
+                            Cliente:
+                        </b>
+                        @cliente.nome
+                    </span>
+                </div>
+                <div class="card-panel teal">
+                    <span class="white-text">
+                        <b>Telefone</b>: @cliente.telefoneMovel
+                    </span>
+                </div>
+
+                <div class="card-panel teal">
+                    <span class="white-text">
+                        <b>Valor Total</b>: @hospedagem.valorHospedagem
+                    </span>
+                </div>
+            </div>
+
+            <div class="input-field col s6" style="height: 400px; overflow: auto;">
+                <ul class="collection">
+                    @foreach (var i in @ViewBag.Produto)
+                    {
+                        <li class="collection-item">
+
+                            <input name="group1" type="radio" id=@i.idProduto value=@i.idProduto required />
+                            <label for=@i.idProduto></label>
+
+                            <span class="title">Descrição: @i.descricao</span>
+                            <p style="margin-left : 38px">
+                                Quantidade: @i.quantidade <br>
+                                Tamanho: @i.tamanho <br>
+                                Valor: @i.valor
+                            </p>
+                        </li>
+
+                    }
+                </ul>
+
+            </div>
+            <div class="col s6 offset-s6 grid-example">
+                <div class="input-field">
+
+                    <label for="first_name">Quantidade</label>
+                    @Html.EditorFor(model => model.quantidade, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.quantidade, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="col s6 offset-s10 grid-example">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <input name="idhospedagem" type="radio" id="idhospedagem" value="@hospedagem.idHospedagem" disabled="disabled" />
+}
+
+@using (Html.BeginForm("CancelarItem", "Item"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="input-field col s12">
+            <table class="hoverable">
+                <tr>
+
+                    <th>
+                        Código
+                    </th>
+                    <th>
+                        Produto
+                    </th>
+                    <th>
+                        Tamanho
+                    </th>
+                    <th>
+                        Quantidade
+                    </th>
+                    <th>
+                        Sub-Total
+                    </th>
+                    <th>
+                        Valor Total
+                    </th>
+                    <th>
+                        Selecionar
+                    </th>
+                    <th>
+                        Opções
+                    </th>
+                    <th></th>
+                </tr>
+
+                @if (@ViewBag.Item != null)
+                {
+
+                    foreach (var item in @ViewBag.Item)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.idItem
+                            </td>
+
+                            <td>
+                                @item.Produto.descricao
+                            </td>
+                            <td>
+                                @item.Produto.tamanho
+                            </td>
+                            <td>
+                                @item.quantidade
+                            </td>
+                            <td>
+                                @item.Produto.valor
+                            </td>
+                            <td>
+                                @item.valorTotal
+                            </td>
+
+                            <td>
+                                <input type="checkbox" class="filled-in" id="@item.idItem @item.idHospedagem" value="@item.idItem @item.idHospedagem" name="checkCancelar" />
+                                <label for="@item.idItem @item.idHospedagem"></label>
+                            </td>
+                            <td>
+                                @Ajax.ActionLink("Atualizar", "Atualizar", new { id = item.idItem }, new AjaxOptions { UpdateTargetId = "modal1" }, new { onclick = "javascript: abre()" }) |
+                                @Html.ActionLink("Detalhar", "Detalhar", new { id = item.idItem }) 
+                               
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+         
+        </div>
+        <div class="col s6 offset-s10 grid-example">
+            <input type="submit" value="Cancelar" class="btn btn-default" />
+        </div>
+    </div>
+
+}
+
+<div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+    </div>
+</div>

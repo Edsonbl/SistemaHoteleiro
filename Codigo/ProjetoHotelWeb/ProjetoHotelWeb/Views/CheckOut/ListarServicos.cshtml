@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Dominio.Classes_Especiais.ServicoHospedagem>
+
+
+@if (Model !=null) { 
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<table class="hoverable">
+    <tr>
+        <th>
+            Código
+        </th>
+        <th>
+            Quarto
+        </th>
+        <th>
+            Data Servico
+        </th>
+        <th>
+            Serviço
+        </th>
+        <th>
+            Quantidade
+        </th>
+        <th>
+            Valor
+        </th>
+        <th>
+            Total
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idServico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quarto)
+            </td>
+            <td>
+                @item.dataAbertura.Value.ToShortDateString() 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.servico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.valorTotal)
+            </td>
+            <td>
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.idServico }) 
+                
+            </td>
+        </tr>
+    }
+
+</table>
+}

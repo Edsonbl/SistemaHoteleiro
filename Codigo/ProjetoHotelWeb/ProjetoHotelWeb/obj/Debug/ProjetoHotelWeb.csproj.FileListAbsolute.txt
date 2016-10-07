@@ -1,0 +1,3 @@
+G:\GitHub\ProjetoHotel\Codigo\ProjetoHotelWeb\ProjetoHotelWeb\obj\Debug\ProjetoHotelWeb.csprojResolveAssemblyReference.cache
+G:\GitHub\ProjetoHotel\Codigo\ProjetoHotelWeb\ProjetoHotelWeb\obj\Debug\RdlCompile.cache
+G:\GitHub\ProjetoHotel\Codigo\ProjetoHotelWeb\ProjetoHotelWeb\obj\Debug\RdlCompile.compiled

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Dominio.Classes.TipoQuarto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar tipo de quarto", "Cadastrar")
+</p>
+<table class="hoverable">
+    <tr>
+        <th>
+            Código
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            Observação
+        </th>
+        <th>
+            Valor
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idTipoQuarto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.observacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.valor)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Atualizar", new { id = item.idTipoQuarto }) |
+                @Html.ActionLink("Detalhar", "Detalhar", new { id = item.idTipoQuarto }) |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.idTipoQuarto })
+            </td>
+        </tr>
+    }
+
+</table>

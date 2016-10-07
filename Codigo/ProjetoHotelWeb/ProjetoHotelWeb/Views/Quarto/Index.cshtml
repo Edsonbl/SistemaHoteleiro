@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Dominio.Classes.Quarto>
+
+@{
+    ViewBag.Title = "Consultar Quartos";
+}
+
+
+<center>
+    <h3>Consultar Quartos</h3>
+</center>
+<hr />
+
+<div class="row">
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s2">
+                <select name="Cargo">
+                    
+                        <option value="1">Tipo</option>
+                        <option value="2">Capacidade</option>
+                        
+                </select>
+            </div>
+            <div class="input-field col s8">
+                
+                    <div class="nav-wrapper">
+                        
+                        <form>
+                            <div class="input-group">
+                                <input id="search" type="search" required>
+                                <label for="search"><i class="material-icons">search</i></label>
+                            </div>
+                        </form>
+                    </div>
+                
+            </div>
+            <div class="input-field col s2">
+                <a class="waves-effect waves-light btn"><i class="material-icons left"></i>Pesquisar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@Html.ActionLink("Cadastrar", "Cadastrar", "Quarto")
+
+<table class="striped">
+    <tr>
+        <th>
+            Código
+        </th>
+        <th>
+            Tipo Teste
+        </th>
+        <th>
+            Quarto
+        </th>
+        <th>
+            Capacidade
+        </th>
+        <th>
+            Ativo
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idQuarto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoQuarto.descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.capacidade)
+            </td>
+            <td>
+                @(item.ativo ? "Sim" : "Nao")
+            </td>
+            <td>
+                @(item.status.Equals("L") ? "Livre" : item.status.Equals("O") ? "Ocupado" : item.status.Equals("R") ? "Requerido" : "Null")
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Atualizar", new { id = item.idQuarto }) |
+                @Html.ActionLink("Detalhes", "Detalhar", new { id = item.idQuarto })  |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.idQuarto })
+ 
+            </td>
+        </tr>
+    }
+    
+</table>
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

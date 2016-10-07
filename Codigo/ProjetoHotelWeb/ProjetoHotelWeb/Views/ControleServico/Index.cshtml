@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Dominio.Classes.ControleServico>
+
+
+@{var Quarto = ViewBag.Quarto;}
+@{var Cliente = ViewBag.Cliente;}
+@{var Servicos = ViewBag.Servicos;}
+@{var Funcionarios = ViewBag.Funcionarios;}
+<h4 class="center">Gerenciamento de Serviços</h4>
+<hr />
+<br>
+<p>
+</p>
+<form>
+    <div class="input-field col s12">
+        <div class="row">
+            <div class="col s6">
+                <b>Hospede: </b> @Cliente.Pessoa.nome <br />
+                <b>CPF: </b> @Cliente.Pessoa.cpfCnpj <br />
+                <b>Telefone: </b> @Cliente.Pessoa.telefoneMovel <br />
+            </div>
+            <div class="col s6 ">
+            </div>
+        </div>
+    </div>
+ <hr />
+    <br />
+</form>
+<h5>Serviços vinculados a hospedagem</h5>
+
+<div class="col s6 offset-s10 grid-example">
+    <input id="novoServico" type="button" class="btn btn-default" onclick="location.href='@Url.Action("VincularServicoHospedagem", "ControleServico", new { idHospedagem = ViewBag.Hospedagem})'" value="Vincular Novo Serviço" />
+</div>
+<br />
+<table class="striped">
+    <tr>
+        <th>
+            <p style="text-align:center">Código</p>
+</th>
+        <th>
+            <p style="text-align:center">Serviço</p>
+</th>
+        <th>
+            <p style="text-align:center">Funcionário Solicitante</p>
+</th>
+        <th>
+            <p style="text-align:center">Data de Abertura</p>
+</th>
+        <th>
+            <p style="text-align:center">Data de Liberação</p>
+</th>
+        <th>
+            <p style="text-align:center">Data de cadastro</p>
+</th>
+        <th>
+            <p style="text-align:center">Situação</p>
+</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <p style="text-align:right">@item.idControleServico</p>
+            </td>
+            <td>
+                @foreach (var servico in Servicos)
+                {
+                    if (servico.idServico == item.idServico)
+                    {
+                        <p style="text-align:right">@servico.descricao</p>
+                        break;
+                    }
+                }
+            </td>
+            <td>
+                @foreach (var funcionario in Funcionarios)
+                {
+                    if (funcionario.idPessoa == item.idFuncionario)
+                    {
+                        <p style="text-align:right">@funcionario.nome</p>
+                        break;
+                    }
+                }
+            </td>
+            <td>
+                <p style="text-align:right">@item.dataAbertura.ToShortDateString()</p>
+            </td>
+            <td>
+                <p style="text-align:right">@item.dataLiberacao</p>
+
+            </td>
+            <td>
+                <p style="text-align:right">@item.dataCadastro.ToShortDateString()</p>
+            </td>
+            <td>
+                @if (item.cancelado.Equals(true))
+                {
+                    <p style="text-align:right">Cancelado</p>
+                }
+                else if (item.cancelado.Equals(false) && (item.dataLiberacao == null))
+                {
+                    <p style="text-align:right">Aberto</p>
+                }
+                else
+                {
+                    <p style="text-align:right">Realizado</p>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Realizado", "RealizarServico", new { idControleServico = item.idControleServico, idHospedagem = item.idHospedagem }) |
+                @Html.ActionLink("Cancelar", "CancelarServico", new { idControleServico = item.idControleServico, idHospedagem = item.idHospedagem })
+                
+            </td>
+        </tr>
+    }
+
+</table>

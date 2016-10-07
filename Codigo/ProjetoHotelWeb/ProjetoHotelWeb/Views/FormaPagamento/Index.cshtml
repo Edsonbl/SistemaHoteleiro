@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Dominio.Classes.FormaPagamento>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="center">Consultar Forma de Pagamento</h2>
+<hr />
+
+<div class="row">
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s2">
+                <select name="Cargo">
+
+                    <option value="1">Tipo</option>
+                    <option value="2">Parcelas</option>
+
+                </select>
+            </div>
+            <div class="input-field col s8">
+
+                <div class="nav-wrapper">
+
+                    <form>
+                        <div class="input-group">
+                            <input id="search" type="search" required>
+                            <label for="search"><i class="material-icons">search</i></label>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="input-field col s2">
+                <a class="waves-effect waves-light btn"><i class="material-icons left"></i>Pesquisar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<p>
+    @Html.ActionLink("Cadastrar", "Cadastrar")
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            Descrição
+        </th>
+
+        <th>
+            Tipo
+        </th>
+        
+        <th>
+           Número Máximo de parcelas
+        </th>
+
+        <th>
+            Observação
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroMaximoParcela)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.observacao)
+        </td>
+               
+        <td>
+            @Html.ActionLink("Edit", "Atualizar", new { id = item.idFormaPagamento }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+
+}
+
+</table>
+
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

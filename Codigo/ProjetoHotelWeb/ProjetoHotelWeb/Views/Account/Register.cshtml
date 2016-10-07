@@ -1,0 +1,107 @@
+﻿@model ProjectHotelWeb.Models.Register
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h4 class="center">Cadastro de Usuário</h4>
+<hr />
+<br>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s0" style="display:none">
+                @Html.EditorFor(model => model.idFuncionario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idFuncionario, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-field col s5 ">
+                <select name="funcionario">
+                    <option value="" disabled selected>Selecione a opção</option>
+                    @if (ViewBag.Funcionarios != null)
+                    {
+                        foreach (var f in ViewBag.Funcionarios)
+                        {
+                            <option value="@f.idPessoa"> @f.nome   |    @f.cpfCnpj</option>
+                        }
+
+                    }
+
+                </select>
+                <label for="funcionario">&nbsp;Funcionário | CPF</label>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s5">
+                <label for="input_text" data-error="Tamanho Insuficiente" data-sucess="LEgal">Nome de Usuário</label>
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s5">
+                <label for="input-text">Senha</label>
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s5">
+                <label for="input_text">Confirmação de Senha</label>
+                @Html.EditorFor(model => model.ConfirmedPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ConfirmedPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s5">
+                <select name="nivel" required>
+                    <option value="" disabled selected>Selecione a opção</option>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <option value="A">Administrador</option>
+                        <option value="G">Gerente</option>
+                    }
+                    <option value="R">Recepcionista</option>
+                    <option value="C">Convidado</option>
+                </select>
+                <label for="nivel">&nbsp;Nível de Acesso</label>
+            </div>
+        </div>
+
+        <div class=" row">
+            <div class="input-field col s10">
+                @Html.ActionLink("Voltar para a lista", "Index")
+            </div>
+
+            <div class="input-field col s0">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+
+
+            </div>
+        </div>
+
+    </form>
+
+    <div class="form-group" style="display:none">
+        @Html.LabelFor(model => model.NivelDeAcesso, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NivelDeAcesso, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NivelDeAcesso, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+

@@ -1,0 +1,79 @@
+﻿@model Dominio.Classes.FormaPagamento
+
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+@using (Html.BeginForm("CadastrarFormaPagamento", "FormaPagamento"))
+{
+    @Html.AntiForgeryToken()
+
+    <form class="col s12">
+
+        <div class="row">
+        
+                <h4 class="center">Cadastrar Forma Pagamento</h4>
+                <hr />
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+                    <div class="row">
+
+                        <div class="input-field col s6">
+
+                            <label for="first_name">Descrição</label>
+
+                            @Html.EditorFor(model => model.descricao, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="input-field col s6">
+                            <label for="first_name">Observação</label>
+
+                            @Html.EditorFor(model => model.observacao, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.observacao, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        
+                        <div class="input-field col s6">
+                            <label for="first_name">Número de parcelas</label>
+
+                            @Html.EditorFor(model => model.numeroMaximoParcela, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.numeroMaximoParcela, "", new { @class = "text-danger" })
+
+                        </div> 
+                        
+                        <div class="input-field col s6">
+                           
+                            <label for="first_name">Tipo</label>
+                            @Html.EditorFor(model => model.tipo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <br />
+                        <div class="col s2">
+                            @Html.ActionLink("Voltar", "Index")
+                        </div>
+                        <div class="col s2">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                                Salvar
+
+                            </button>
+                        </div>
+
+              </div>
+        </div>
+    </form>
+}
+    
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

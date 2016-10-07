@@ -1,0 +1,45 @@
+﻿@model Dominio.Classes.TipoQuarto
+
+@{
+    ViewBag.Title = "Detalhar";
+}
+
+<h2>Detalhar</h2>
+
+<div>
+    <h4>Tipo de Quarto</h4>
+    <hr />
+
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Código: </b>  @Html.DisplayFor(model => model.idTipoQuarto)
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Descrição: </b>  @Html.DisplayFor(model => model.descricao)
+        </div>
+        <div class="input-field col s4">
+            <b>Observação: </b>  @Html.DisplayFor(model => model.observacao)
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Valor: </b>  @Html.DisplayFor(model => model.valor)
+        </div>
+    </div>
+
+</div>
+<p>
+    <div class="row">
+        <div class="input-field col s10">
+            @Html.ActionLink("Editar", "Atualizar", new { id = Model.idTipoQuarto })
+        </div>
+        <div class="input-field col s0">
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    </div>
+</p>

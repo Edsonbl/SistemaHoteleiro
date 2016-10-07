@@ -1,0 +1,184 @@
+﻿@model List<Dominio.Classes.Hospedagem>
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2 class="center">Check-out</h2>
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script>
+
+    function pegarValor() {
+        var table = document.getElementById("hospedagens");
+
+        var ids = [];
+        var index = 0;
+        table.rows[0].cells[0].innerHTML;
+        for (var i = 1; i < table.rows.length; i++) {
+            ids[index++] = table.rows[i].cells[0].innerHTML.trim();
+        }
+        var url = '@Url.Action("Pagamento", "Pagamento")?hospedagensSelect=' + ids;
+        window.location.href = url;
+
+    }
+
+
+
+</script>
+<hr />
+@using (Html.BeginForm("acicionarQuartos", "Checkout"))
+{
+    <div class="row">
+
+        @foreach (var hospedagem in Model)
+        {
+
+
+            if (hospedagem.Quarto.status.Equals("O"))
+            {
+                <div class="col s2.3">
+                    <div class="card small">
+                        <div class="card white">
+                            <div class="card-content white-text">
+                                <span class="card-title">
+                                    <input type="checkbox" class="filled-in" id="@hospedagem.idHospedagem" value="@hospedagem.idHospedagem" name="check" />
+                                    <label for="@hospedagem.idHospedagem"><font color="#26a69a"><b>@hospedagem.Quarto.descricao</b></font></label>
+                                </span>
+                                <br />
+
+                                <p> <font color="#26a69a">Total: @hospedagem.valorHospedagem</font></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            }
+
+        }
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="input-field col s4">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Adicionar
+            </button>
+        </div>
+    </div>
+    <hr />
+}
+
+
+    <table class="striped" id="hospedagens">
+        <tr>
+            <th>
+                Quarto
+            </th>
+            <th>
+                Data
+            </th>
+            <th>
+                Tipo
+            </th>
+            <th>
+                Quantidade
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Selecionar
+            </th>
+            <th>
+                Excluir
+            </th>
+
+            <th></th>
+        </tr>
+
+        @if (ViewBag.Hospedagem != null)
+        {
+
+            foreach (var hospedagem in ViewBag.Hospedagem)
+            {
+
+
+                <tr>
+                    <td style="display:none">
+                        @hospedagem.idHospedagem
+                    </td>
+                    <td>
+                        @hospedagem.Quarto.descricao
+                    </td>
+                    <td>
+                        @(hospedagem.dataAbertura + " - " + hospedagem.dataLiberacao)
+                    </td>
+                    <td>
+                        @hospedagem.Quarto.TipoQuarto.descricao
+                    </td>
+                    <td>
+                        @hospedagem.ControleCliente.Count
+                    </td>
+                    <td>
+                        @hospedagem.Quarto.TipoQuarto.valor
+                    </td>
+                    <td>
+                        @hospedagem.valorHospedagem
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Serviços", "ListarServicos", new { idHospedagem = hospedagem.idHospedagem }, new AjaxOptions
+                   {
+                       UpdateTargetId = "divResultadoConsulta",
+                       LoadingElementId = "divCarregando"
+
+                   })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Remover", "adicionarHospedagensExcluidas", new { idHospedagem = hospedagem.idHospedagem })
+                    </td>
+
+                </tr>
+            }
+        }
+
+    </table>
+    <hr />
+    <div id="divResultadoConsulta"> </div>
+    <div id="divCarregando" class="progresso">
+
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="input-field col s8">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Voltar
+            </button>
+        </div>
+        <div class="input-field col s4">
+            <button class="btn waves-effect waves-light" name="action" onclick="pegarValor()">
+                Check-out
+            </button>
+        </div>
+    </div>
+

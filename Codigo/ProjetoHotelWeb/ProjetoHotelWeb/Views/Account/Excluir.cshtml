@@ -1,0 +1,60 @@
+﻿@model ProjectHotelWeb.Models.User
+
+<h4 class="center">Excluir Usuário</h4>
+<hr />
+<br>
+<h6 style="color:red"><b>Cuidado! Este procedimento removerá permanentemente um usuário do sistema</b></h6>
+<h6>O cadastro de pessoa continuará preservado</h6>
+
+<br />
+
+<form class="col s12">
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Nome de usuário: </b>  @Html.DisplayFor(model => model.UserName)
+        </div>
+        <div class="input-field col s0">
+            <b>Nome do funcionário: </b>  @ViewBag.Funcionario.nome
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Nível de Usuário</b> @ViewBag.Role
+        </div>
+        <div class="input-field col s0">
+            <b>Data de cadastro: </b>  @Html.DisplayFor(model => model.dataCadastro)
+        </div>
+    </div>
+
+
+</form>
+
+@using (Html.BeginForm("ExcluirUsuario", "Account", new { userId = Model.Id }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <form class="col s12">
+
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input type="submit" value="Excluir" class="btn btn-default" />
+                </div>
+                <div class="input-field col s0">
+                    @Html.ActionLink("Voltar para a lista", "Index")
+                </div>
+            </div>
+
+        </form>
+
+    </p>
+}

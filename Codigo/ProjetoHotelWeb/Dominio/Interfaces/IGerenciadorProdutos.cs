@@ -1,0 +1,17 @@
+﻿using Dominio.Classes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dominio.Interfaces
+{
+    public interface IGerenciadorProdutos : IRepositorio<ProdutoModel>
+    {
+        int Cadastrar(ProdutoModel produto);
+        void Atualizar(ProdutoModel produto);
+        void Remover(ProdutoModel produto);
+        ProdutoModel ResultadoUnico(int idProduto);
+    }
+}

@@ -1,0 +1,60 @@
+﻿@model Dominio.Classes.Quarto
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2 class="center">Excluir Quarto</h2>
+<hr />
+
+<form class="col 12">
+
+        <div class="row">
+            <div class="input-field col s4">
+                <p class="flow-text">
+                    Número Quarto: @Html.DisplayFor(model => model.idQuarto)
+                </p>
+            </div>
+            <div class="input-field col s8">
+                <p class="flow-text">
+                    Descrição: @Html.DisplayFor(model => model.descricao)
+                </p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="input-field col s4">
+                <p class="flow-text">
+                    Capacidade: @Html.DisplayFor(model => model.capacidade)
+                </p>
+            </div>
+            <div class="input-field col s8">
+                <p class="flow-text">
+                    Descrição: @Html.DisplayFor(model => model.idTipoQuarto)
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <p class="flow-text">
+                    Observação: @Html.DisplayFor(model => model.observacao)
+                </p>
+            </div>
+        </div>
+
+    <div class="row">
+        @using (Html.BeginForm("ExcluirQuarto", "Quarto"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.idQuarto)
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Excluir" class="btn btn-default" onclick="javascript:return confirm('Tem certeza que deseja excluir quarto?');" /> |
+                @Html.ActionLink("Voltar", "Index")
+            </div>
+        }
+    </div>
+
+</form>

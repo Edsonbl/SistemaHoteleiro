@@ -1,0 +1,58 @@
+﻿@model Dominio.Classes.Item
+
+<style>
+    h5 {
+        display: inline;
+    }
+
+    h4 {
+        display: inline;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Detalhar";
+}
+
+<h2>Detalhar</h2>
+
+<div>
+    <h4>Item</h4>
+    <hr />
+     <div class="row">
+        <div class="input-field col s4">
+            <h4>  @Html.DisplayFor(model => model.Hospedagem.Quarto.descricao) </h4>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Nome do produto: </b>  @Html.DisplayFor(model => model.Produto.descricao)
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Tamanho do produto: </b>  @Html.DisplayFor(model => model.Produto.tamanho)
+        </div>
+        <div class="input-field col s4">
+            <b>Quantidade: </b>  @Html.DisplayFor(model => model.quantidade)
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Sub-Total: </b>  @Html.DisplayFor(model => model.Produto.valor)
+        </div>
+        <div class="input-field col s4">
+            <b>Valor Total: </b>  @Html.DisplayFor(model => model.valorTotal)
+        </div>
+    </div>
+
+</div>
+<p>
+<p>
+  
+    @Html.ActionLink("Voltar", "Cadastrar", new { idHospedagem = @Model.idHospedagem})
+</p>

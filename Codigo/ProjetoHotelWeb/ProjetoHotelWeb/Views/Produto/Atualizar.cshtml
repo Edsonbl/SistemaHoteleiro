@@ -1,0 +1,92 @@
+﻿@model Dominio.Classes.Produto
+
+@{
+    ViewBag.Title = "Atualizar";
+}
+
+<h2>Atualizar</h2>
+
+@using (Html.BeginForm("AtualizarProduto", "Produto"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Produto</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="input-field col s6">
+                <label for="first_name">Código</label>
+
+                @Html.EditorFor(model => model.idProduto, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idProduto, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <label for="first_name">Tamanho</label>
+
+                @Html.EditorFor(model => model.tamanho, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.tamanho, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="input-field col s6">
+                <label for="first_name">Quantidade</label>
+
+                @Html.EditorFor(model => model.quantidade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.quantidade, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <label for="first_name">Valor</label>
+
+                @Html.EditorFor(model => model.valor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="first_name">Descrição</label>
+
+                @Html.EditorFor(model => model.descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="first_name">Observação</label>
+
+                @Html.EditorFor(model => model.observacao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.observacao, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class=" row">
+            <div class="input-field col s10">
+                @Html.ActionLink("Voltar", "Index")
+            </div>
+
+            <div class="input-field col s0">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+
+
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

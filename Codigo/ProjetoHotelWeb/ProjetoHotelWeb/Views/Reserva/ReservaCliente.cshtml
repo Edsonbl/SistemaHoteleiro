@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Dominio.Classes_Especiais.QuartosLivresReserva>
+
+<h4>Reservas</h4>
+<div class="row">
+    @{decimal valorTotal = 0;}
+    <div class="input-field col s12">
+        <table class="table">
+            <tr>
+
+                <th>
+                    Entrada
+                </th>
+                <th>
+                    Saída
+                </th>
+                <th>
+                    Tipo Quarto
+                </th>
+                <th>
+                    Pessoas
+                </th>
+                <th>
+                    Valor
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var i in Model)
+            {
+                valorTotal = i.valorTotal;
+                <tr>
+
+                    <td>
+                        @if (@i.dataInicio != null)
+                        {
+                            @i.dataInicio
+                        }
+                    </td>
+                    <td>
+                        @if (@i.dataFim != null)
+                        {
+                            @i.dataFim
+                        }
+                    </td>
+                    <td>
+                        @i.descricao
+                    </td>
+                    <td>
+                        @i.capacidade
+                    </td>
+                    <td>
+                        @i.valor
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+
+
+    </div>
+</div>
+<div class="row">
+
+
+
+    @{decimal valorParcial= (valorTotal/2);}
+   
+    <div class="row">
+
+        <div class="col s10 offset-s5 grid-example">
+            <h5>Valor Antecipado: @valorParcial</h5>
+        
+            <h4> Total: @valorTotal</h4>
+        </div>
+
+    </div>
+</div>

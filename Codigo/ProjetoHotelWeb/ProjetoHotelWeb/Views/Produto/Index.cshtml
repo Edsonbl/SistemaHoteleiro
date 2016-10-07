@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Dominio.Classes.Produto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar", "Cadastrar")
+</p>
+<table class="hoverable">
+    <tr>
+        <th>
+            Código
+        </th>
+        <th>
+            Tamanho
+        <th>
+            Quantidade
+        </th>
+        <th>
+            Descrição
+        </th>
+        <th>
+            Observação
+        </th>
+        <th>
+            Valor
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tamanho)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.observacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.valor)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Atualizar", new { id = item.idProduto }) |
+                @Html.ActionLink("Detalhar", "Detalhar", new { id = item.idProduto }) |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.idProduto })
+            </td>
+        </tr>
+    }
+
+</table>

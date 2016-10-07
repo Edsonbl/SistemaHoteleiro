@@ -1,0 +1,107 @@
+﻿@model Dominio.Classes.PacoteHospedagem
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2>Excluir</h2>
+
+<h3>Deseja Realmente Excluir?</h3>
+<div>
+    <h4>PacoteHospedagem</h4>
+    <hr />
+    <form id="demo"> 
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idPacoteHospedagem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idPacoteHospedagem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valorTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valorTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.subTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataLiberacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataLiberacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataEntrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataEntrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataSaida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataSaida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataCadastro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataCadastro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipoPacote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoPacote)
+        </dd>
+
+    </dl>
+</form>
+    @using (Html.BeginForm("ExcluirReserva", "Reserva")) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.idPacoteHospedagem)
+
+        <div class="form-actions no-color">
+            <input type=button value="Demitir"  onclick="funcao1()"/> |
+            
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Dominio.Classes.Servico>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar", "Cadastrar")
+</p>
+<table class="striped">
+    <tr>
+        <th>
+            Código
+        </th>
+        <th>
+            Serviço
+        </th>
+
+        <th>
+            Valor
+        </th>
+        <th>
+            Opções
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idServico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descricao)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.valor)
+            </td>
+
+            <td>
+                @Html.ActionLink("Atualizar", "Atualizar", new { id=item.idServico }) |
+                @Html.ActionLink("Detalhar", "Detalhar", new { id = item.idServico }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.idServico })
+            </td>
+        </tr>
+    }
+
+</table>

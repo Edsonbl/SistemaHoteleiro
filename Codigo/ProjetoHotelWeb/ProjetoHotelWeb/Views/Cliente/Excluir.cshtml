@@ -1,0 +1,188 @@
+﻿@model Dominio.Classes.Pessoa
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+
+
+
+<h4 class="center">Excluir Cliente</h4>
+<hr />
+
+
+
+<form class="col s12">
+    <div class="row">
+        <div class="col s4">
+
+            <p class="flow-text">
+                Código: @Html.DisplayFor(model => model.idPessoa)
+            </p>
+        </div>
+        <div class="col s8">
+            <p class="flow-text">
+                Nome: @Html.DisplayFor(model => model.nome)
+            </p>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col s4">
+
+            <p class="flow-text">
+                CPF: @Html.DisplayFor(model => model.cpfCnpj)
+            </p>
+        </div>
+        <div class="col s4">
+
+            <p class="flow-text">
+                RG: @Html.DisplayFor(model => model.rg)
+            </p>
+        </div>
+        <div class="col s4">
+
+            <p class="flow-text">
+                Sexo: @Html.DisplayFor(model => model.sexo)
+
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col s6">
+
+            <p class="flow-text">
+                Data Nascimento: @Model.dataNascimento.ToShortDateString()
+            </p>
+        </div>
+
+
+        <div class="col s6">
+            <p class="flow-text">
+                Estado Civil: @Html.DisplayFor(model => model.estadoCivil)
+            </p>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <div class="row">
+
+        <div class="col s6">
+
+            <p class="flow-text">
+                Telefone: @Html.DisplayFor(model => model.telefoneFixo)
+            </p>
+        </div>
+        <div class="col s6">
+
+            <p class="flow-text">
+                Celular: @Html.DisplayFor(model => model.telefoneMovel)
+            </p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col s6">
+            <p class="flow-text">
+                Email: @Html.DisplayFor(model => model.emailPimario)
+            </p>
+        </div>
+        <div class="col s6">
+            <p class="flow-text">
+               Email Alternativo: @Html.DisplayFor(model => model.emailSecundario)
+            </p>
+        </div>
+    </div>
+
+    
+    <hr />
+    <div class="row">
+        <div class="col s12">
+            <p class="flow-text">
+                Rua: @Html.DisplayFor(model => model.rua)
+            </p>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col s6">
+            <p class="flow-text">
+                Complemento: @Html.DisplayFor(model => model.complemento)
+            </p>
+        </div>
+        <div class="col s3">
+            <p class="flow-text">
+                Nº: @Html.DisplayFor(model => model.numero)
+            </p>
+        </div>
+
+        <div class="col s3">
+            <p class="flow-text">
+                CEP: @Html.DisplayFor(model => model.cep)
+            </p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col s6">
+            <p class="flow-text">
+                Bairro: @Html.DisplayFor(model => model.bairro)
+            </p>
+        </div>
+        <div class="col s3">
+            <p class="flow-text">
+                Cidade: @Html.DisplayFor(model => model.cidade)
+            </p>
+        </div>
+
+        <div class="col s3">
+            <p class="flow-text">
+                Estado: @Html.DisplayFor(model => model.estado)
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s6">
+            <p class="flow-text">
+                Cadastro: @Html.DisplayFor(model => model.dataCadastro)
+            </p>
+        </div>
+        <div class="col s3">
+            <p class="flow-text">
+                Ativo: @(Model.ativo ? "Sim" : "Não")
+            </p>
+        </div>
+        <div class="col s3">
+            <p class="flow-text">
+                Funcionario: @(Model.isFuncionario ? "Sim" : "Não")
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("ExcluirCliente", "Cliente"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.idPessoa)
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Excluir" class="btn btn-default" onclick="javascript:return confirm('Tem certeza que deseja realizar a ação?');" /> |
+                @Html.ActionLink("Voltar", "Index")
+            </div>
+        }
+    </div>
+</form>
+
+
+

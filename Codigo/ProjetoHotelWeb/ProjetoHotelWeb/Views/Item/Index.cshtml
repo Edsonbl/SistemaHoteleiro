@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Dominio.Classes.Item>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Código do Item
+        </th>
+        <th>
+            Código Hospedagem
+        </th>
+        <th>
+            Código Produto
+        </th>
+        <th>
+            Quantidade
+        </th>
+        <th>
+            Valor Total
+        </th>
+        <th>
+            Data Cadastro
+        </th>
+        <th>
+            Cancelado
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.idItem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idHospedagem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idProduto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valorTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataCadastro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cancelado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

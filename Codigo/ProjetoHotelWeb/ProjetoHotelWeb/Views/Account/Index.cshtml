@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ProjectHotelWeb.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4 class="center">Usuários</h4>
+<hr />
+<br>
+
+<p>
+    @Html.ActionLink("Registrar Novo", "Register")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Código de funcionário
+        </th>
+        <th>
+            Nome do funcionário
+        </th>
+
+        <th>
+            Nome de usuário
+        </th>
+       
+
+        <th>
+            Nível de acesso
+        </th>
+        <th>
+            Estado
+        </th>
+        <th>
+            Data de cadastro
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idFuncionario)
+            </td>
+
+            <td>
+                @foreach (var funcionario in ViewBag.Funcionarios)
+                {
+                    if (item.idFuncionario.Equals(funcionario.idPessoa))
+                    {
+                        <p>@funcionario.nome</p>
+                    }
+                }
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+           
+
+            <td>
+                
+                @foreach (var role in item.Roles)
+                {
+                    foreach (var itemRole in ViewBag.Roles)
+                    {
+                        if (role.RoleId.Equals(itemRole.Id))
+                        {
+                            <p>@itemRole.Name</p>
+                        }    
+                    }
+                    
+                }  
+                
+            </td>
+            <td>
+                @(item.ativo ? "Ativo" : "Inativo")
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataCadastro)
+            </td>
+           
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id=item.Id }) |
+               
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+

@@ -1,0 +1,126 @@
+﻿@model Dominio.Classes.Servico
+
+@{ViewBag.Title = "VincularServicoHospede";}
+
+@{var hospedagem = ViewBag.Hospedagem;}
+@{var pessoa = ViewBag.Pessoa;}
+@{var quarto = ViewBag.Quarto;}
+@{var servicos = ViewBag.Servicos;}
+@{var cliente = ViewBag.Cliente;}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<h4 class="center">Vincular Serviço à Hospedagem</h4>
+<hr />
+<br>
+
+<script type="text/javascript">
+    $(function () {
+        $('#form').submit(function () {
+            var postData = $(this).serializeArray();
+            $.ajax({
+                type: 'POST',
+                url: '/ControleServico/AdicionarServico',
+                dataType: 'html',
+                cache: false,
+                async: true,
+                data: postData,
+                success: function (result) {
+                    $('#divServicosDaHospedagem').html(result);
+                }
+            });
+
+            return false;
+        });
+    });
+
+</script>
+
+
+<form id="form" name="form">
+    <div class="form-horizontal">
+
+        <div class="row">
+            <div class="col s6">
+                <div class="card-panel teal">
+
+                    <h5 class="center ; white-text">@quarto.descricao</h5>
+
+                </div>
+                <div class="card-panel teal">
+                    <span class="white-text">
+                        <b>
+                            Cliente:
+                        </b>
+                        @pessoa.nome
+                    </span>
+                </div>
+                <div class="card-panel teal">
+                    <span class="white-text">
+                        <b>Telefone</b>: @pessoa.telefoneMovel
+                    </span>
+                </div>
+
+                <div class="card-panel teal">
+                    <span class="white-text">
+                        <b>Valor Total</b>: @hospedagem.valorHospedagem
+                    </span>
+                </div>
+            </div>
+            <div class="input-field col s6" style="height: 400px;  overflow:auto;">
+                <ul class="collection">
+                    @foreach (var servico in servicos)
+                    {
+                        <li class="collection-item">
+
+                            <input name="listaServico" type="radio" id=@servico.idServico value=@servico.idServico required />
+                            <label for=@servico.idServico></label>
+
+                            <span class="title">Descrição: @servico.descricao</span>
+                            <p style="margin-left : 10px">Valor: @servico.valor</p>
+                            @if (@servico.ativo)
+                            {
+                                <p style="margin-left : 10px">Situação: Ativo</p>
+                            }
+                            else
+                            {
+                                <p style="margin-left : 10px">
+                                    Situação: Inativo
+                                </p>
+                            }
+
+
+                            <p style="margin-left : 10px">Observacao: @servico.observacao</p>
+
+
+                        </li>
+
+                    }
+                </ul>
+
+
+            </div>
+            <div class="col s6 offset-s10 grid-example">
+                <input id="adicionar" type="submit" value="Adicionar" class="btn btn-default" />
+            </div>
+        </div>
+
+        <input name="idhospedagem" type="radio" id="idhospedagem" value="@hospedagem.idHospedagem" disabled="disabled" />
+    </div>
+</form>
+
+<div id="divServicosDaHospedagem" class="col s12"></div>
+
+<div id="divListaHospedagem" class="col s12"></div>
+
+<div class="input-field col s10">
+    <h5>@Html.ActionLink("Voltar para a lista", "Index", new { idHospedagem = hospedagem.idHospedagem })</h5>
+</div>
+
+
+
+
+
+

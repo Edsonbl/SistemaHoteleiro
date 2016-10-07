@@ -1,0 +1,162 @@
+﻿@model Dominio.Classes.PacoteHospedagem
+
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastrar</h2>
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#formConsulta').submit(function () {
+            var postData = $(this).serializeArray();
+            $.ajax({
+                type: 'POST',
+                url: '/Reserva/Consultar',
+                beforeSend: mostraBarra,
+                complete: ocultaBarra,
+                dataType: 'html',
+                cache: false,
+                async: true,
+                data: postData,
+                success: function (result) {
+                    $('#divResultadoConsulta').html(result);
+                }
+            }); 
+            return false;
+
+        });
+        
+
+    });
+   
+</script>
+
+<form id="formConsulta" name="formConsulta">
+
+    <hr>
+    <div class="row">
+        <div class="input-field col s2">
+            <input id="dataInicio" name="dataInicio" type="text" class="validate" onkeypress="javascript: mascara(this, date_mask); return isNumberKey(event)" maxlength="10" required>
+            <label for="dataInicio">Data Início</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input id="dataFim" name="dataFim" type="text" class="validate" onkeypress="javascript: mascara(this, date_mask); return isNumberKey(event)" maxlength="10" required>
+            <label for="dataFim">Data Final</label>
+        </div>
+        <div class="input-field col s4">
+
+            <select name="tipoQuarto">
+                <option value="" disabled selected>Selecione a opção</option>
+                @foreach (var i in @ViewBag.tipoQuarto)
+                {
+                    <option value="@i.descricao">@i.descricao</option>
+                }
+
+
+            </select>
+            <label for="tipoQuarto">&nbsp;Tipo Quarto</label>
+        </div>
+        <div class="input-field col s1">
+            <input id="pessoas" name="pessoas" type="text" class="validate" onkeypress="return isNumberKey(event)" maxlength="5" required>
+            <label for="pessoas">Pessoas</label>
+        </div>
+
+        <div class="input-field col s1">
+            <input id="quartos" name="quartos" type="text" class="validate" onkeypress="return isNumberKey(event)" maxlength="5">
+            <label for="quartos">Quartos</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s6 offset-s10 grid-example">
+            <input type="submit" value="Consultar" class="btn btn-default" />
+        </div>
+    </div>
+    <hr>
+ 
+</form>
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#form').submit(function () {
+            var postData = $(this).serializeArray();
+            $.ajax({
+                type: 'POST',
+                url: '/Reserva/ReservaCliente',
+                dataType: 'html',
+                beforeSend: mostraBarra,
+                complete: ocultaBarra,
+                cache: false,
+                async: true,
+                data: postData,
+                success: function (result) {
+                    $('#divResultadoConsultaCliente').html(result);
+                }
+            });   
+            return false;
+        });
+    });
+</script>
+<form id="form" name="form">
+    <div class="row">
+
+        <div class="input-field col s4">
+            @{var cpf = "";}
+            @if (@ViewBag.dadosView != null)
+            {
+                cpf = @ViewBag.dadosView[0];
+            }
+            <input id="cpf" value="@cpf" name="cpf" type="text" class="validate" onkeypress="javascript: mascara(this, cpf_mask); return isNumberKey(event)" maxlength="14" required>
+            <label for="cpf">Cpf</label>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="input-field col s8">
+            @{var idPacote = "";}
+            @if (@ViewBag.idPacoteHospedagem != null)
+            {
+                idPacote = Convert.ToString(@ViewBag.idPacoteHospedagem);
+            }
+            <input id="idPacote" value="@idPacote" name="idPacote" type="text" class="validate" style="display:none">
+
+            @{var nome = "";}
+            @if (@ViewBag.dadosView != null)
+            {
+                nome = @ViewBag.dadosView[1];
+            }
+            <input id="nome" value="@nome" name="nome" type="text" class="validate" required>
+            <label for="nome">Nome</label>
+        </div>
+
+        <div class="input-field col s4">
+            @{var telefone = "";}
+            @if (@ViewBag.dadosView != null)
+            {
+                telefone = @ViewBag.dadosView[2];
+            }
+            <input id="telefone" value="@telefone" name="telefone" type="text" class="validate" onkeypress="javascript: mascara(this, telefone_mask); return isNumberKey(event)" maxlength="14" required>
+            <label for="telefone">Telefone</label>
+        </div>
+
+    </div>
+    <div id="divResultadoConsulta"> </div>
+   
+    <hr>
+</form>
+
+<div id="divResultadoConsultaCliente"> </div>
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>

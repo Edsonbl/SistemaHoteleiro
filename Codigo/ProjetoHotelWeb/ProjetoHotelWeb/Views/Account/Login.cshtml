@@ -1,0 +1,56 @@
+﻿@model ProjectHotelWeb.Models.Login
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h4 class="center">Login</h4>
+<hr />
+<br>
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    
+    
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s5">
+                <label for="input-text">Nome de Usuário</label>
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="input-field col s5">
+                <label for="input-text">Senha</label>
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @Length = "36" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="checkbox col s5">
+                <input type="checkbox" id="test5" />
+                <label for="test5">&nbsp;Lembrar Senha</label>
+                @Html.EditorFor(model => model.RememberMe)
+                @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                
+
+                
+            </div>
+        </div>
+
+        <div class=" row">
+            <div class="input-field col s10">
+                @Html.ActionLink("Voltar para o inicio", "Index")
+            </div>
+
+            <div class="input-field col s0">
+                <input type="submit" value="Entrar" class="btn btn-default" />
+
+            </div>
+        </div>
+
+    </form>
+}

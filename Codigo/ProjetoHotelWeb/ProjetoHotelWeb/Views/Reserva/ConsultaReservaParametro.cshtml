@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Dominio.Classes.PacoteHospedagem>
+
+<table class="striped">
+    <tr>
+        <th>
+            Data Início
+        </th>
+        <th>
+            Data Saída
+        </th>
+        <th>
+            Nome do Cliente
+        </th>
+        <th>
+            Cpf
+        </th>
+        <th>
+            Quantidade Quartos
+        </th>
+        <th>
+            Valor
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.dataEntrada.ToShortDateString()
+            </td>
+            <td>
+                @if (item.dataSaida.HasValue)
+                {
+                    @item.dataSaida.Value.ToShortDateString();
+                }
+            </td>
+            <td>
+                @item.Hospedagem[0].ControleCliente[0].Pessoa.nome
+            </td>
+            <td>
+                @item.Hospedagem[0].ControleCliente[0].Pessoa.cpfCnpj
+            </td>
+            <td>
+                @item.Hospedagem.Count()
+            </td>
+            <td>
+                @item.valorTotal
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Atualizar", new { id = item.idPacoteHospedagem }) |
+                @Html.ActionLink("Detalhar", "Detalhar", new { id = item.idPacoteHospedagem }) |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.idPacoteHospedagem })
+            </td>
+        </tr>
+    }
+
+</table>

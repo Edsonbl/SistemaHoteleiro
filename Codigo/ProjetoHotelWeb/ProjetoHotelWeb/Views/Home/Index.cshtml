@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
+</script>
+ <!-- Modal Trigger -->
+
+
+<div class="row">
+
+    <div class="col s12 m10 l10">
+
+      
+
+        <form name="itemForm" id="itemForm">
+            
+            
+
+
+            <div class="row">
+
+
+                <div class="col s1">
+                    <a class="btn-floating btn-large waves-effect waves-light blue" onclick="RealizarCheckin()">
+                        <i class="material-icons">call_made</i>
+
+                    </a>
+                </div>
+                <div class="col s1">
+
+                    <a class="btn-floating btn-large waves-effect waves-light red" onclick="RealizarCheckout()">
+                        <i class="material-icons">call_received</i>
+                    </a>
+
+                </div>
+                <div class="col s1">
+
+                    <a class="btn-floating btn-large waves-effect waves-light green" id="teste" onclick="AdicionarItem()">
+                        <i class="material-icons">shopping_cart</i>
+                    </a>
+
+
+
+
+                </div>
+                <div class="col s1">
+
+                    <a class="btn-floating btn-large waves-effect waves-light green" id="teste2" onclick="VincularServico()">
+                        <i class="material-icons">shopping_cart</i>
+                    </a>
+
+
+                </div>
+                <div class="col s1">
+
+
+                    <a class="btn-floating btn-large waves-effect waves-light green" onclick="AddToCart()" style="display:none">
+                        <i class="material-icons">polymer</i>
+                    </a>
+                </div>
+                <div class="col s1">
+                    <a class="btn-floating btn-large waves-effect waves-light green" onclick="AddToCart()" style="display:none">
+                        <i class="material-icons">search</i>
+                    </a>
+
+                </div>
+                <div class="col s1">
+
+                    <a class="btn-floating btn-large waves-effect waves-light green" onclick="AddToCart()" style="display:none">
+                        <i class="material-icons">dialpad</i>
+                    </a>
+                </div>
+                <div class="col s1">
+
+                    <a class="btn-floating btn-large waves-effect waves-light green" onclick="AddToCart()" style="display:none">
+                        <i class="material-icons">note_add</i>
+                    </a>
+                </div>
+                <div class="col s1">
+                    <a class="btn-floating btn-large waves-effect waves-light green" onclick="AddToCart()" style="display:none">
+                        <i class="material-icons">description</i>
+                    </a>
+                </div>
+                <div class="col s1">
+                    <a class="btn-floating btn-large waves-effect waves-light green" onclick="AddToCart()" style="display:none">
+                        <i class="material-icons">delete</i>
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+            <hr />
+
+
+            <div class="row">
+                @if (ViewBag.TipoQuartos != null)
+                {
+                    foreach (var quarto in ViewBag.TipoQuartos)
+                    {
+
+                        <div class="card-panel teal">
+
+                            <h6 class="center ; white-text"> @quarto.descricao</h6>
+                        </div>
+
+                        <div class="row">
+
+                            @foreach (var item in quarto.Quarto)
+                            {
+
+
+                                if (item.status.Equals("L"))
+                                {
+
+
+
+                                    <div class="col s2.3">
+                                        <div class="card small">
+                                            <div class="card green">
+                                                <div class="card-content white-text">
+                                                    <span class="card-title">
+                                                        <input type="checkbox" class="filled-in" id="@item.idQuarto" required />
+                                                        <label for="@item.idQuarto"><font color="white"><b>@item.descricao</b></font></label>
+                                                    </span>
+                                                    <br />
+
+                                                    <p>Total: @item.TipoQuarto.valor</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                }
+
+                            }
+
+                        </div>
+
+                    }
+                }
+                <div class="card-panel teal">
+
+                    <h6 class="center ; white-text"> Hospedagens</h6>
+                </div>
+                @if (ViewBag.Hospedagens != null)
+                {
+
+                    <div class="row">
+
+                        @foreach (var h in ViewBag.Hospedagens)
+                        {
+
+
+
+
+
+                            if (h.Quarto.status.Equals("O"))
+                            {
+                                <div class="col s2.3">
+                                    <div class="card small">
+                                        <div class="card red">
+                                            <div class="card-content white-text">
+                                                <span class="card-title">
+                                                    <input type="checkbox" class="filled-in" id="@(h.idHospedagem + "/" + h.idPacoteHospedagem)" />
+                                                    <label for="@(h.idHospedagem + "/" + h.idPacoteHospedagem)"><font color="white"><b>@h.Quarto.descricao</b></font></label>
+                                                </span>
+                                                @foreach (var cc in h.ControleCliente)
+                                                {
+                                                    foreach (var c in ViewBag.Clientes)
+                                                    {
+                                                        <p><h6> @(cc.idCliente == c.idPessoa ? @c.nome : "")</h6></p>
+                                                    }
+                                                }
+                                                <p>@h.Quarto.TipoQuarto.descricao</p>
+                                                <p>Total:   @h.valorHospedagem</p>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+
+                    </div>
+                }
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="col s12 m2 l2">
+
+        <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light green" id="livre" onclick="ListarQuartos('L')">
+
+            </a>
+            Disponíveis
+        </div>
+        <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ListarQuartos('O')">
+
+            </a>
+            Ocupados
+        </div>
+        <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light grey" onclick="ListarQuartos('T')">
+
+            </a>
+            Todos
+        </div>
+      
+      
+
+
+
+        <!-- Note that "m8 l9" was added -->
+        <!-- Teal page content
+
+            This content will be:
+        9-columns-wide on large screens,
+        8-columns-wide on medium screens,
+        12-columns-wide on small screens  -->
+
+
+    </div>
+
+</div>
+

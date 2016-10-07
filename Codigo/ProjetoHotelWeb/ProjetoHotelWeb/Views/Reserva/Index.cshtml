@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Dominio.Classes.PacoteHospedagem>
+
+@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<h2>Reserva</h2>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#limpaCampo').click(
+        function () {
+            $('#search-field').val("");
+        });
+    });
+    function enviaForm() {
+        var postData = $('#formConsultaReserva').serializeArray();
+        $.ajax({
+            type: 'POST',
+            url: '/Reserva/ConsultaReservaParametro',
+            dataType: 'html',
+            cache: false,
+            async: true,
+            data: postData,
+            success: function (result) {
+                $('#divResultadoConsulta').html(result);
+            }
+        });
+        return false;
+    };
+    function mudaMascara(obj) {
+        var selecao = $('#paremetroPesquisa').val()
+        
+        if (selecao == 'cpf') {
+            obj.maxLength = 14;
+            mascara(obj, cpf_mask);
+        }
+        if (selecao == 'dataInicio') {
+            obj.maxLength = 10;
+            mascara(obj, date_mask);
+        }
+        if (selecao == 'dataFim') {
+            obj.maxLength = 10;
+            mascara(obj, date_mask);
+        }
+    }
+
+</script>
+<form id="formConsultaReserva">
+    <div class="row">
+        <div class="input-field col s2">
+            <select name="parametroPesquisa" id="parametroPesquisa">
+                <option value="nome">Nome</option>
+                <option value="cpf">Cpf</option>
+                <option value="dataInicio">Data de Inínio</option>
+                <option value="dataFim">Data de Saída</option>
+            </select>
+        </div>
+        <div class="col s8 grid-example">
+            <div class="input-field">
+                <input type="search" name="pesquisa" id="search-field" class="field" onkeyup="enviaForm()" onkeypress="mudaMascara(this)" required>
+                <label for=" search-field"><i class="mdi-action-search"></i></label>
+                <i class="mdi-navigation-close" id="limpaCampo"></i>
+            </div>
+        </div>
+        <div class="col s2 grid-example">
+            <br>
+            <input type="submit" value="Pesquisar" class="btn btn-default" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s10 offset-s10 grid-example">
+            <span class="btn-link">@Html.ActionLink("Cadastrar", "Cadastrar")</span>
+        </div>
+    </div>
+</form>
+
+<div id="divResultadoConsulta"> </div>

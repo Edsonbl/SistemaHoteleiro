@@ -1,0 +1,295 @@
+﻿@{
+    ViewBag.Title = "Pagamento";
+}
+
+<h2>Pagamento</h2>
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+
+    function enviaForm(metodo) {
+        var postData = $('#pagamento').serializeArray();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/Pagamento/' + metodo,
+            dataType: 'html',
+            cache: false,
+            async: true,
+            data: postData,
+            success: function (result) {
+                window.location.href = '/Pagamento/Pagamento';
+
+            }
+
+        });
+
+        return false;
+
+    };
+    function FinalizarPagamento() {
+        
+        window.location.href = '/Pagamento/FinalizarPagamento';
+
+    };
+
+
+</script>
+
+@if (ViewBag.Clientes != null)
+{  <div class="row">
+
+
+        <table class="striped">
+            <tr>
+                <th>
+                    Código
+                </th>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Celular
+                </th>
+                <th>
+                    CPF
+                </th>
+
+                <th>
+                    CEP
+                </th>
+
+                
+                <th></th>
+            </tr>
+
+            @foreach (var item in ViewBag.Clientes)
+            {
+                <tr>
+
+                    <td>
+                        @item.idPessoa
+                    </td>
+
+                    <td>
+                        @item.nome
+                    </td>
+                    <td>
+                        @item.telefoneMovel
+                    </td>
+                    <td>
+                        @item.cpfCnpj
+                    </td>
+
+                    <td>
+                        @item.cep
+                    </td>
+
+
+                </tr>
+            }
+
+        </table>
+    </div>
+}
+<form id="pagamento" onsubmit="
+    setTimeout(function () { window.location.reload(); }, 5)">
+    <div class="row">
+
+        <div class="input-field s4">
+
+            <div class="input-field col s6" style="height: 150px; overflow: auto;">
+                <div class="col s2.3">
+                    <input name="group1" type="radio" id="Avista" value="1" required checked />
+                    <label for="Avista"><img src="~/Content/img/grana.png" /> A vista</label>
+                </div>
+                <div class="col s2.3" style="display:none">
+                    <input name="group1" type="radio" id="Cartao" value="2" required onclick="enviaForm('pagamentoAvist')" />
+                    <label for="Cartao"><img src="~/Content/img/cartao3.png" />Cartão</label>
+                </div>
+                <div class="col s2.3" style="display:none">
+                    <input name="group1" type="radio" id="Cheque" value="3" required onclick="enviaForm('pagamentoAvist')" />
+                    <label for="Cheque"><img src="~/Content/img/Cheque.png" />Cheque</label>
+                </div>
+                <div class="col s2.3" style="display:none">
+                    <input name="group1" type="radio" id="Divida" value="4" required onclick="enviaForm('pagamentoAvist')" />
+                    <label for="Divida"><img src="~/Content/img/divida.png" />Dívida</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="input-field s4">
+            <div class="input-field col s6" style="height: 150px; overflow: auto;">
+                <div class="col s2.3" style="display:none">
+                    <input name="group2" type="radio" id="Credito" value="C" onclick="enviaForm('pagamentoAvist')" />
+                    <label for="Credito"><img src="~/Content/img/cartao1.png" /> Credito</label>
+                </div>
+                <div class="col s2.3" style="display:none">
+                    <input name="group2" type="radio" id="Debito" value="D" onclick="enviaForm('pagamentoAvist')" />
+                    <label for="Debito"><img src="~/Content/img/cartao3.png" />Debito</label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="input-field col s4" style="display:none">
+            <select name="formaPagamento">
+
+                @if (ViewBag.FormaPagamento != null)
+                {
+                    foreach (var item in ViewBag.FormaPagamento)
+                    {
+                        <option id="@item.idFormaPagamento" value="@item.idFormaPagamento"> @item.descricao </option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="input-field col s4" style="display:none">
+            <select name="quantidadeParcela">
+                @if (ViewBag.FormaPagamento != null)
+                {
+                    foreach (var item in ViewBag.FormaPagamento)
+                    {
+                        <option id="@item.idFormaPagamento" value="@item.idFormaPagamento"> @item.descricao </option>
+                    }
+                }
+            </select>
+        </div>
+
+
+        <div class="input-field  col s2">
+            <input id="valorPago" name="valorPago" type="text" class="validate">
+            <label for="valorPago">Valor Pago</label>
+
+        </div>
+
+    </div>
+</form>
+<div class="input-field  col s2">
+    <button class="btn waves-effect waves-light" name="action" onclick="enviaForm('AdicionarPagamento')">
+        Adicionar
+    </button>
+</div>
+
+<div class="row">
+    <div class="input-field col s6">
+
+        <table class="striped">
+
+            <tr>
+                <th>Forma de Pagamento</th>
+                <th>Parcelas</th>
+                <th>Valor</th>
+                <th>Opçãoes</th>
+            </tr>
+            @if (ViewBag.FormaPagamentoAtuais != null)
+            {
+
+                foreach (var item in ViewBag.FormaPagamentoAtuais)
+                {
+                    <tr>
+                        <td>
+                            @item.formaPagamentosAtuais.descricao
+
+                        </td>
+                        <td>
+                            @item.formaPagamentosAtuais.numeroMaximoParcela
+                        </td>
+                        <td>
+                            @item.valorPago
+                        </td>
+
+
+                    </tr>
+
+                }
+            }
+        </table>
+
+    </div>
+
+    <div class="input-field col s6">
+        <div class="row">
+            <div class="input-field col s3">
+                <p class="flow-text">Total</p>
+            </div>
+            <div class="input-field col s3">
+                <input id="total" type="text" class="validate" value="@ViewBag.Valor">
+                <label for="total">R$</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s3">
+                <p class="flow-text">Recebido</p>
+            </div>
+            <div class="input-field col s3">
+                <input id="recebido" type="text" value="@ViewBag.ValorPago" class="validate">
+                <label for="recebido">R$</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s3">
+                <p class="flow-text">Desconto</p>
+            </div>
+            <div class="input-field col s3">
+                <input id="desconto" type="text" class="validate">
+                <label for="desconto">R$</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s3">
+                <p class="flow-text">Troco</p>
+            </div>
+            <div class="input-field col s3">
+                <input id="troco" type="text" value="@ViewBag.Troco" class="validate">
+                <label for="troco">R$</label>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</div>
+<div class="row">
+    <div class="input-field col s6">
+
+        <input id="infoCheque" type="text" class="validate">
+        <label for="infoCheque">Informação relacionada a cheque</label>
+
+    </div>
+    <div class="input-field col s6">
+
+        <input id="infoDesconto" type="text" class="validate">
+        <label for="infoDesconto">Informação de desconto</label>
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="input-field col s10">
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+            Voltar
+        </button>
+
+    </div>
+    <div class="input-field col s2">
+
+        <button class="btn waves-effect waves-light" type="submit" name="action" onclick="FinalizarPagamento()">
+            Finalizar
+        </button>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

@@ -1,0 +1,53 @@
+﻿@model Dominio.Classes.TipoQuarto
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2>Excluir</h2>
+
+<h3>Deseja Realmente Excluir?</h3>
+<div>
+    <h4>Tipo de Quarto</h4>
+    <hr />
+
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Código: </b>  @Html.DisplayFor(model => model.idTipoQuarto)
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Descrição: </b>  @Html.DisplayFor(model => model.descricao)
+        </div>
+        <div class="input-field col s4">
+            <b>Observação: </b>  @Html.DisplayFor(model => model.observacao)
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Valor: </b>  @Html.DisplayFor(model => model.valor)
+        </div>
+    </div>
+
+    @using (Html.BeginForm("ExcluirTipoQuarto", "TipoQuarto"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.idTipoQuarto)
+
+    <div class=" row">
+        <div class="input-field col s10">
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+
+        <div class="input-field col s0">
+            <input type="submit" value="Excluir" class="btn btn-default" />
+
+
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,93 @@
+﻿@model Dominio.Classes.PacoteHospedagem
+
+@{
+    ViewBag.Title = "Detalhar";
+}
+<style>
+    h5 {
+        display: inline;
+    }
+
+    h4 {
+        display: inline;
+    }
+</style>
+<h2>Detalhar</h2>
+
+<div>
+    <h4>Reserva</h4>
+    <hr />
+    <h5>Cpf: </h5> @Model.Hospedagem[0].ControleCliente[0].Pessoa.cpfCnpj
+    <div class="row">
+        <div class="col s8 grid-example">
+            <h5>Nome: </h5>@Model.Hospedagem[0].ControleCliente[0].Pessoa.nome
+        </div>
+        <div class="col s4 grid-example">
+            <h5>Telefone Móvel: </h5> @Model.Hospedagem[0].ControleCliente[0].Pessoa.telefoneMovel
+        </div>
+        
+       
+    </div>
+    <hr>
+    <div class="row">
+        <table class="striped">
+            <tr>
+                <th>
+                    Data Início
+                </th>
+                <th>
+                    Data Saída
+                </th>
+                <th>
+                    Tipo do Quarto
+                </th>
+                <th>
+                    Pessoas
+                </th>
+                <th>
+                    Valor
+                </th>
+
+            </tr>
+
+            @foreach (var item in ViewBag.reservasPacote)
+            {
+                <tr>
+                    <td>
+                        @item.dataFim.ToShortDateString()
+                    </td>
+                    <td>
+
+                        @item.dataFim.ToShortDateString()
+
+                    </td>
+                    <td>
+                        @item.descricao
+                    </td>
+                    <td>
+                        @item.capacidade
+                    </td>
+                    <td>
+                        @item.valor
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <hr>
+    <div class="row">
+        @{decimal valorAntecipado = (@Model.valorTotal / 2);}
+        <div class="col s8 grid-example">
+            <h5>Valor Antecipado: </h5>@valorAntecipado
+        </div>
+        <div class="col s4 grid-example">
+            <h4>Total: </h4>@Model.valorTotal
+        </div>
+
+
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { /* id = Model.PrimaryKey */ })
+</p>

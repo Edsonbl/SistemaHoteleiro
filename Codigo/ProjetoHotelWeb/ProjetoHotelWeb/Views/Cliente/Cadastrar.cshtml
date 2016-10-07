@@ -1,0 +1,259 @@
+﻿@model Dominio.Classes.Pessoa
+
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+@using (Html.BeginForm("CadastrarCliente", "Cliente"))
+{
+    @Html.AntiForgeryToken()
+
+    <form class="col s12">
+        <div class="row">
+            <h4 class="center">Cadastro de Cliente</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s3" style="display:none">
+
+                        @Html.LabelFor(model => model.idPessoa, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.EditorFor(model => model.idPessoa, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.idPessoa, "", new { @class = "text-danger" })
+
+
+                    </div>
+                    <div class="input-field col s3" style="display:none">
+
+                        @Html.LabelFor(model => model.idCargo, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                        @Html.EditorFor(model => model.idCargo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.idCargo, "", new { @class = "text-danger" })
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="first_name">Nome</label>
+
+                        @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for="first_name">CPF/CNPJ</label>
+
+                        @Html.EditorFor(model => model.cpfCnpj, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.cpfCnpj, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="first_name">RG</label>
+
+                        @Html.EditorFor(model => model.rg, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.rg, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+
+                        <label for="first_name">Data Nascimento</label>
+
+                        <input id="Nascimento" name="Nascimento" type="text" class="datepicker">
+
+                    </div>
+                    <div class="input-field col s4">
+                        <select id="estadoCivil" name="estadoCivil">
+                            <option value="" disabled selected>Selecione a opção</option>
+                            <option value="Solteiro">Solteiro</option>
+                            <option value="Casado">Casado</option>
+                            <option value="Divorciado">Divorciado</option>
+                            <option value="Viúvo">Viúvo</option>
+
+                        </select>
+                        <label for="first_name">Estado Civil</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <select id="sexo" name="sexo">
+                            <option value="" disabled selected>Selecione a opção</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+
+
+                        </select>
+                        <label for="first_name">Sexo</label>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="input-field col s6">
+                        <label for="first_name">Telefone</label>
+
+                        @Html.EditorFor(model => model.telefoneFixo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.telefoneFixo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-field col s6">
+
+                        <label for="first_name">Celular</label>
+
+                        @Html.EditorFor(model => model.telefoneMovel, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.telefoneMovel, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for="first_name">Email</label>
+
+                        @Html.EditorFor(model => model.emailPimario, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.emailPimario, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="first_name">Email Opcional</label>
+
+                        @Html.EditorFor(model => model.emailSecundario, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.emailSecundario, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+            
+                <br />
+                <hr />
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for="first_name">Bairro</label>
+
+                        @Html.EditorFor(model => model.bairro, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.bairro, "", new { @class = "text-danger" })
+
+
+
+                    </div>
+                    <div class="input-field col s6">
+
+                        <label for="first_name">Cidade</label>
+
+                        @Html.EditorFor(model => model.cidade, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.cidade, "", new { @class = "text-danger" })
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="first_name">Rua/Av</label>
+                        @Html.EditorFor(model => model.rua, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.rua, "", new { @class = "text-danger" })
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <label for="first_name">Complemento</label>
+                        @Html.EditorFor(model => model.complemento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.complemento, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-field col s2">
+                        <label for="first_name">Númeto</label>
+
+                        @Html.EditorFor(model => model.numero, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.numero, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="input-field col s3">
+
+                        <label for="first_name">CEP</label>
+
+                        @Html.EditorFor(model => model.cep, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.cep, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="input-field col s3">
+                        <select name="Estado" style="display:ruby-base-group">
+                            <option value="" disabled selected>Selecione a opção</option>
+                            <option value="ac">Acre</option>
+                            <option value="al">Alagoas</option>
+                            <option value="ap">Amapá</option>
+                            <option value="am">Amazonas</option>
+                            <option value="ba">Bahia</option>
+                            <option value="ce">Ceará</option>
+                            <option value="df">Distrito Federal</option>
+                            <option value="es">Espirito Santo</option>
+                            <option value="go">Goiás</option>
+                            <option value="ma">Maranhão</option>
+                            <option value="ms">Mato Grosso do Sul</option>
+                            <option value="mt">Mato Grosso</option>
+                            <option value="mg">Minas Gerais</option>
+                            <option value="pa">Pará</option>
+                            <option value="pb">Paraíba</option>
+                            <option value="pr">Paraná</option>
+                            <option value="pe">Pernambuco</option>
+                            <option value="pi">Piauí</option>
+                            <option value="rj">Rio de Janeiro</option>
+                            <option value="rn">Rio Grande do Norte</option>
+                            <option value="rs">Rio Grande do Sul</option>
+                            <option value="ro">Rondônia</option>
+                            <option value="rr">Roraima</option>
+                            <option value="sc">Santa Catarina</option>
+                            <option value="sp">São Paulo</option>
+                            <option value="se">Sergipe</option>
+                            <option value="to">Tocantins</option>
+                        </select>
+                        <label for="first_name">Estado</label>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <hr />
+                        <div class="input-field col s6">
+                            <h6 style="color:red; font-size:10px">
+                                Os campos marcados com (*) são Obrigatórios
+                            </h6>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <br />
+                        <div class="col s2">
+                            @Html.ActionLink("Voltar", "Index")
+                        </div>
+                        <div class="col s2">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                                Salvar
+
+                            </button>
+                        </div>
+                    </div>
+            </form>
+
+        </div>
+    </form>
+}
+
+<script type="text/javascript" src="~/Content/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="~/Content/js/materialize.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

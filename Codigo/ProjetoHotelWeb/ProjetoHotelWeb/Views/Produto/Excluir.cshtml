@@ -1,0 +1,62 @@
+﻿@model Dominio.Classes.Produto
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2>Excluir</h2>
+
+<h3>Deseja realmente excluir?</h3>
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Código do produto: </b>  @Html.DisplayFor(model => model.idProduto)
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Tamanho: </b>  @Html.DisplayFor(model => model.tamanho)
+        </div>
+        <div class="input-field col s4">
+            <b>Quantidade: </b>  @Html.DisplayFor(model => model.quantidade)
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Valor: </b>  @Html.DisplayFor(model => model.valor)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s4">
+            <b>Descrição: </b>  @Html.DisplayFor(model => model.descricao)
+        </div>
+
+        <div class="input-field col s4">
+            <b>Observação: </b>  @Html.DisplayFor(model => model.observacao)
+        </div>
+    </div>
+
+
+    @using (Html.BeginForm("ExcluirProduto", "Produto")) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.idProduto)
+        <div class=" row">
+        <div class="input-field col s10">
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+
+        <div class="input-field col s0">
+            <input type="submit" value="Excluir" class="btn btn-default" /> 
+
+
+        </div>
+    </div>
+
+    }
+</div>

@@ -1,0 +1,51 @@
+﻿@model Dominio.Classes.Servico
+
+@{
+    ViewBag.Title = "Detalhar";
+}
+
+
+    <div class="row">
+        <div class="col s4">
+
+            <p class="flow-text">
+                <b>Código: </b>@Html.DisplayFor(model => model.idServico)
+            </p>
+        </div>
+        <div class="col s8">
+            <p class="flow-text">
+                <b> Nome: </b>@Html.DisplayFor(model => model.descricao)
+            </p>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col s4">
+
+            <p class="flow-text">
+                <b>Valor:</b> @Html.DisplayFor(model => model.valor)
+            </p>
+        </div>
+        <div class="col s8">
+
+            <p class="flow-text">
+                <b> Observação:</b> @Html.DisplayFor(model => model.observacao)
+            </p>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col s4">
+
+
+                <p class="flow-text">
+                    <b>Ativo: </b>@(Model.ativo ? "Sim" : "Não")
+                </p>
+            </div>
+        </div>
+
+  
+    <p>
+        @Html.ActionLink("Atualizar", "Atualizar", new {  id = Model.idServico }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
